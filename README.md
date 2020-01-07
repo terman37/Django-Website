@@ -15,7 +15,7 @@ Web based app for personal finance management,
 - running on ubuntu server 18.04
 
 
-## Setup / install django
+## Setup / install Django
 
 ```bash
 sudo apt-get update -y
@@ -50,21 +50,14 @@ sudo apt-get update -y
 
 ## Create Django project
 
-- optional - Create folder:
-
-  ```bash
-  mkdir ~/django-project
-  cd django-project
-  ```
-
 - Start project (this will create new folder structure)
 
   ```bash
-  django-admin startproject djangoproject
-  cd djangoproject
+  django-admin startproject mydjangoproject
+  cd mydjangoproject
   ```
 
-- Setup db (using sqlite)
+- Setup the database (using sqlite - otherwise change in settings.py)
 
   ```bash
   python manage.py migrate
@@ -72,7 +65,7 @@ sudo apt-get update -y
 
 - Create superuser
 
-  ```
+  ```bash
   python manage.py createsuperuser
   ```
 
@@ -81,30 +74,111 @@ sudo apt-get update -y
 - Allow host name
 
   ```bash
-  nano ~/django-test/djangoproject/settings.py
+  nano mydjangoproject/settings.py
   ```
 
   - Add at allowed hosts line,  
 
     ```
-    ALLOWED_HOSTS = ['your_public_dns','and/or IP']
+    ALLOWED_HOSTS = ['your_public_IP']
     ```
 
 - Run development server
 
   ```bash
-  python manage.py runserver your_public_dns:8000
+  python manage.py runserver your_private_IP:8000
   ```
 
-- Check if it works in browser goto:
+- Check if it works in browser go to:
 
-  http://your_public_dns:8000
+  > http://<your_public_ip>:8000
+  >
 
   <img src="django_initial_setup.png" alt="django_initial_setup" style="zoom: 33%;" />
 
-- admin page located at:
+- Admin page located at:
 
-  http://your_public_dns:8000/admin
+  > http://<your_public_ip>:8000/admin
+>
+
+
+
+## Create Django App
+
+- create app
+
+  ```bash
+  python manage.py startapp mycpts
+  ```
+
+
+
+## Install / Setup MariaDB
+
+- Install mariaDB
+
+  ```bash
+  sudo apt install mariadb-server
+  ```
+
+- secure database
+
+  ```bash
+  sudo mysql_secure_installation
+  ```
+
+- to connect remotely: 
+
+  ```bash
+  sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf
+  ```
+
+  > change bind-address = 0.0.0.0
+
+- restart service
+
+  ```bash
+  sudo service mysql restart
+  ```
+
+- service status (q to quit)
+
+  ```bash
+  sudo service mysql status
+  ```
+
+- connect to maria
+
+  ```bash
+  sudo mysql -u root -p
+  ```
+
+- create new user
+
+  ```mysql
+  grant all privileges on *.* TO 'USER_NAME'@'%' identified by 'PASSWORD';
+  flush privileges;
+  ```
+
+- use heidiSQL to recreate DB from SQL exported.
+
+## TIPS
+
+- Set time zone of website:
+
+  in settings.py update 
+
+  ```
+  TIME_ZONE = 'Europe/Paris'
+  ```
+
+  Add static path for files
+
+- in settings.py add (at the end) 
+
+  ```
+  STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+  ```
 
   
 
