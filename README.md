@@ -60,12 +60,25 @@ Web based app for personal finance management,
   sudo mysql -u root -p
   ```
 
-- create new user
+- create new user (for remote access)
 
   ```mysql
   grant all privileges on *.* TO 'USER_NAME'@'%' identified by 'PASSWORD';
+  ```
+
+- create new user (for local django access)
+
+  ```mysql
+  grant all privileges on *.* TO 'django'@'127.0.0.1' identified by 'PASSWORD';
+  ```
+
+- apply
+
+  ```mysql
   flush privileges;
   ```
+
+  
 
 - use heidiSQL to recreate DB from SQL exported.
 
@@ -121,19 +134,7 @@ Web based app for personal finance management,
   cd mydjangoproject
   ```
 
-- // Setup the database (using sqlite - otherwise change in settings.py)
-
-  ```bash
-  python manage.py migrate
-  ```
-
-- // Create superuser
-
-  ```bash
-  python manage.py createsuperuser
-  ```
-
-  give username / email / password
+- 
 
 - Allow host name
 
@@ -224,14 +225,88 @@ Web based app for personal finance management,
   ]
   ```
 
+
+
+## Create templates
+
+- create folder template in appname
+
+  ```bash
+  mkdir appname/templates
+  mkdir appname/templates/appname
+  ```
+
+- create template
+
+  ```bash
+  nano appname/templates/appname/index.html
+  ```
+
+  
+
+Create static for css
+
+- create folder template in appname
+
+  ```bash
+  mkdir appname/static
+  mkdir appname/static/appname
+  ```
+
+  
+
+
+
+## Setup database for Django
+
+- install mysqlclient connector
+
+  ```
+  conda install mysqlclient
+  ```
+
+- modify settings.py
+
+  ```bash
+  nano myproject/settings.py
+  ```
+
+  change database lines:
+
+  ```python
+  DATABASES = {
+      'default': {
+          'ENGINE': 'django.db.backends.mysql',
+          'NAME': 'dbname',
+          'USER': 'django',
+          'PASSWORD': 'password',
+          'HOST': '127.0.0.1',
+          'PORT': '3306',
+      }                                                                                 }
+  ```
+
+- Setup the database
+
+  ```bash
+  python manage.py migrate
+  ```
+
   
 
 
 
 
-
-
 ## TIPS
+
+- // Create superuser
+
+  ```bash
+python manage.py createsuperuser
+  ```
+  
+  give username / email / password
+
+  
 
 - Set time zone of website:
 
