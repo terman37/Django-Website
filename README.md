@@ -178,7 +178,7 @@ Web based app for personal finance management,
 - modify view
 
   ```bash
-  nano myapp/views.py
+  nano appname/views.py
   ```
 
   add
@@ -190,10 +190,31 @@ Web based app for personal finance management,
       return HttpResponse("Hello, world.")
   ```
 
+- add app in django settings
+
+  ```
+  nano mydjangoproject/settings.py
+  ```
+
+  in INSTALLED_APPS add:
+
+  ```
+  INSTALLED_APPS = [
+      'django.contrib.admin',
+      'django.contrib.auth',                                                     'django.contrib.contenttypes',
+      'django.contrib.sessions',
+      'django.contrib.messages',
+      'django.contrib.staticfiles',
+      'appname',
+  ]
+  ```
+
+  
+
 - create urls
 
   ```
-  nano myapp/urls.py
+  nano appname/urls.py
   ```
 
   add
@@ -210,7 +231,7 @@ Web based app for personal finance management,
 - route urls
 
   ```
-  nano myproject/urls.py
+  nano mydjangoproject/urls.py
   ```
 
   modify
@@ -283,6 +304,18 @@ Create static for css
           'HOST': '127.0.0.1',
           'PORT': '3306',
       }                                                                                 }
+  ```
+
+- create models.py from legacy database
+
+  ```
+  python manage.py inspectdb > appname/models.py
+  ```
+
+- make migrations
+
+  ```
+  python manage.py makemigrations
   ```
 
 - Setup the database
