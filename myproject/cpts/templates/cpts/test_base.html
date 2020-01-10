@@ -4,12 +4,15 @@
 <html>
 <head>
     <link rel="stylesheet" href="{% static 'cpts/css/test.css' %}">
-    <title>Mon app</title>
+    {% block title %}
+
+    {% endblock title %}
 </head>
 
 <body class="bg-secondary">
+    {% include 'cpts/test_menu.html' %}
     {% block content %}
 
-    {% endblock %}
+    {% endblock content %}
 </body>
 </html>
