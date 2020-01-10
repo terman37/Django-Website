@@ -69,7 +69,7 @@ Web based app for personal finance management,
 - create new user (for local django access)
 
   ```mysql
-  grant all privileges on *.* TO 'django'@'127.0.0.1' identified by 'PASSWORD';
+  grant all privileges on *.* TO 'django'@'127.0.0.1' identified by 'password';
   ```
 
 - apply
@@ -77,8 +77,6 @@ Web based app for personal finance management,
   ```mysql
   flush privileges;
   ```
-
-  
 
 - use heidiSQL to recreate DB from SQL exported.
 
@@ -112,9 +110,15 @@ Web based app for personal finance management,
   django-admin --version
   ```
 
+- install mysqlclient connector
 
+  ```bash
+  conda install mysqlclient
+  ```
 
-## Get WIP
+  
+
+## (Optional) Get WIP
 
 - clone git
 
@@ -125,33 +129,111 @@ Web based app for personal finance management,
 
 
 
-## Create Django project
+## Create Django Project & App
 
 - Start project (this will create new folder structure)
 
   ```bash
-  django-admin startproject mydjangoproject
-  cd mydjangoproject
+  django-admin startproject myproject
+  cd myproject
   ```
 
-- 
-
-- Allow host name
+- Create app names cpts
 
   ```bash
-  nano mydjangoproject/settings.py
+  python manage.py startapp cpts
   ```
 
-  - Add at allowed hosts line,  
+- Create templates & static folders
 
-    ```
+  ```bash
+  mkdir cpts/templates
+  mkdir cpts/templates/cpts
+  mkdir cpts/static
+  mkdir cpts/static/cpts
+  ```
+
+  
+
+## Modify Django settings
+
+- modify settings.py
+
+  ```bash
+  nano myproject/settings.py
+  ```
+
+  - Add allowed hosts:
+
+    ```python
     ALLOWED_HOSTS = ['your_public_IP']
     ```
+
+  - Add appname to INSTALLED_APPS:
+
+    ```python
+    INSTALLED_APPS = [
+    	'django.contrib.admin',
+    	'django.contrib.auth',
+    	'django.contrib.contenttypes',
+    	'django.contrib.sessions',
+    	'django.contrib.messages',
+    	'django.contrib.staticfiles',
+    	'cpts',
+    ]
+    ```
+
+  - Change database lines:
+
+    ```python
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'dbname',
+            'USER': 'django',
+            'PASSWORD': 'password',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+        }
+    }
+    ```
+
+  - Change Time Zone:
+
+    ```python
+    TIME_ZONE = 'Europe/Paris'
+    ```
+
+    
+
+## Cpts Models
+
+- create models.py from legacy database
+
+  ```
+  python manage.py inspectdb > cpts/models.py
+  ```
+
+- make migrations
+
+  ```
+  python manage.py makemigrations
+  ```
+
+- Setup the database
+
+  ```bash
+  python manage.py migrate
+  ```
+
+  
+
+## Test with development server
 
 - Run development server
 
   ```bash
-  python manage.py runserver your_private_IP:8000
+  python manage.py runserver 0:8000
   ```
 
 - Check if it works in browser go to:
@@ -167,13 +249,13 @@ Web based app for personal finance management,
 
 
 
+
+
+
+
 ## Create Django App
 
-- create app
 
-  ```bash
-  python manage.py startapp appname
-  ```
 
 - modify view
 
@@ -189,27 +271,6 @@ Web based app for personal finance management,
   def index(request):
       return HttpResponse("Hello, world.")
   ```
-
-- add app in django settings
-
-  ```
-  nano mydjangoproject/settings.py
-  ```
-
-  in INSTALLED_APPS add:
-
-  ```
-  INSTALLED_APPS = [
-      'django.contrib.admin',
-      'django.contrib.auth',                                                     'django.contrib.contenttypes',
-      'django.contrib.sessions',
-      'django.contrib.messages',
-      'django.contrib.staticfiles',
-      'appname',
-  ]
-  ```
-
-  
 
 - create urls
 
@@ -248,106 +309,18 @@ Web based app for personal finance management,
 
 
 
-## Create templates
-
-- create folder template in appname
-
-  ```bash
-  mkdir appname/templates
-  mkdir appname/templates/appname
-  ```
-
-- create template
-
-  ```bash
-  nano appname/templates/appname/index.html
-  ```
-
-  
-
-Create static for css
-
-- create folder template in appname
-
-  ```bash
-  mkdir appname/static
-  mkdir appname/static/appname
-  ```
-
-  
-
-
-
-## Setup database for Django
-
-- install mysqlclient connector
-
-  ```
-  conda install mysqlclient
-  ```
-
-- modify settings.py
-
-  ```bash
-  nano myproject/settings.py
-  ```
-
-  change database lines:
-
-  ```python
-  DATABASES = {
-      'default': {
-          'ENGINE': 'django.db.backends.mysql',
-          'NAME': 'dbname',
-          'USER': 'django',
-          'PASSWORD': 'password',
-          'HOST': '127.0.0.1',
-          'PORT': '3306',
-      }                                                                                 }
-  ```
-
-- create models.py from legacy database
-
-  ```
-  python manage.py inspectdb > appname/models.py
-  ```
-
-- make migrations
-
-  ```
-  python manage.py makemigrations
-  ```
-
-- Setup the database
-
-  ```bash
-  python manage.py migrate
-  ```
-
-  
-
-
-
 
 ## TIPS
 
 - // Create superuser
 
   ```bash
-python manage.py createsuperuser
+  python manage.py createsuperuser
   ```
-  
+
   give username / email / password
 
   
-
-- Set time zone of website:
-
-  in settings.py update 
-
-  ```
-  TIME_ZONE = 'Europe/Paris'
-  ```
 
   Add static path for files
 
