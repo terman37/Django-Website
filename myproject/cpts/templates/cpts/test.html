@@ -1,14 +1,5 @@
-{% load static %}
+{% extends 'cpts/test_base.html' %}
 
-<!DOCTYPE HTML>
-<html>
-<head>
-    <link rel="stylesheet" href="{% static 'cpts/css/test.css' %}">
-    <title>Mon app</title>
-</head>
-
-<body class="bg-secondary">
+{% block content %}
     <p>Test 1 Hello Moi</p>
-
-</body>
-</html>
+{% endblock %}
