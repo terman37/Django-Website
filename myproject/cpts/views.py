@@ -5,4 +5,4 @@ from django.shortcuts import render
 
 def summary(request):
     pagetitle = "Summary"
-    return render(request, 'cpts/summary.html', {'title': pagetitle})
+    return render(request, 'cpts/summary.html', {'title': pagetitle, 'datas': 'truc'})
