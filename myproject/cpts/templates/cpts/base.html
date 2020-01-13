@@ -3,9 +3,10 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+    {% include 'cpts/common_head.html' %}
     {% block head %}
 
-    {% endblock %}
+    {% endblock head %}
 </head>
 
 <body class="bg-secondary">
@@ -23,16 +24,18 @@
             </div>
             <!-- DATAS_TO_DISPLAY -->
             <div id="DATAS">
-
+                {% block datas %
+                {% endblock datas %}
             </div>
         </div>
     </article>
 
     <!-- TOP MENU BAR -->
-    {% block menu %}
+    {% include 'cpts/menu.html' %}
 
-    {% endblock %}
     <!-- COMMON SCRIPTS -->
+    {% include 'cpts/menu.html' %}
+
     <!-- LAUNCH SCRIPT AFTER LOAD -->
 
 </body>
