@@ -7,9 +7,9 @@
 {% endblock head %}
 
 {% block datas %}
-    {{ mydatas }}
+
     {% for cpt in mydatas %}
-        <p>print a {{ cpt }}</p>
+        <p>print a {{ cpt.t_name }}</p>
     {% endfor %}
 
 {% endblock datas %}
