@@ -6,4 +6,4 @@ from .models import Accounts
 def summary(request):
     pagetitle = "Summary"
     accounts = Accounts.objects.all()
-    return render(request, 'cpts/summary.html', {'title': pagetitle, 'datas': accounts})
+    return render(request, 'cpts/summary.html', {'title': pagetitle, 'mydatas': accounts})
