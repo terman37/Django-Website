@@ -7,9 +7,13 @@
 {% endblock head %}
 
 {% block datas %}
-
-    {% for cpt in mydatas %}
-        <p>print a {{ cpt.t_name }}</p>
-    {% endfor %}
-
+    <table class="table table-striped bg-light m-1">
+        {% for cpt in mydatas %}
+        <tr>
+            <td>
+                {{ cpt.t_name }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 {% endblock datas %}
