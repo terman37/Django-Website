@@ -25,12 +25,16 @@
                 <td class="text-center text-muted font-italic">{{ cpt.t_banque }}</td>
                 {% if cpt.n_solde_avail > 0 %}
                     <td class="text-right text-success">{{ cpt.n_solde_avail }}</td>
+                {% elif cpt.n_solde_avail == 0 %}
+                    <td></td>
                 {% else %}
                     <td class="text-right text-danger">{{ cpt.n_solde_avail }}</td>
                 {% endif %}
 
                 {% if cpt.n_solde_locked > 0 %}
                     <td class="text-right text-success">{{ cpt.n_solde_locked }}</td>
+                {% elif cpt.n_solde_locked == 0 %}
+                    <td></td>
                 {% else %}
                     <td class="text-right text-danger">{{ cpt.n_solde_locked }}</td>
                 {% endif %}
