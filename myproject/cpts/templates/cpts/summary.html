@@ -13,6 +13,8 @@
             </table>
             <p>{{cpt.t_type}}</p>
             <table class="table table-striped bg-light m-1">
+
+        {% endifchanged %}
                 <tr>
                     <td class="text-left">{{ cpt.t_name }}</td>
                     <td class="text-center text-muted font-italic">{{ cpt.t_banque }}</td>
@@ -22,8 +24,6 @@
                         <td class="text-right text-danger">{{ cpt.n_solde_avail }}</td>
                     {% endif %}
                 </tr>
-        {% endifchanged %}
-
             <!--
             {% for cpt in mydatas %}
             {% if cpt.t_type == cpt_type %}
