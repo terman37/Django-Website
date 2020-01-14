@@ -24,20 +24,25 @@
                 <td class="text-left">{{ cpt.t_name }}</td>
                 <td class="text-center text-muted font-italic">{{ cpt.t_banque }}</td>
                 {% if cpt.n_solde_avail > 0 %}
-                    <td class="text-right text-success">{{ cpt.n_solde_avail|floatformat:"0" }}</td>
+                    <td class="text-right text-success">
                 {% elif cpt.n_solde_avail == 0 %}
-                    <td></td>
+                    <td>
                 {% else %}
-                    <td class="text-right text-danger">{{ cpt.n_solde_avail }}</td>
+                    <td class="text-right text-danger">
                 {% endif %}
+                        {{ cpt.n_solde_avail|floatformat:"0" }}
+                    </td>
 
                 {% if cpt.n_solde_locked > 0 %}
-                    <td class="text-right text-success">{{ cpt.n_solde_locked }}</td>
+                    <td class="text-right text-success">
                 {% elif cpt.n_solde_locked == 0 %}
-                    <td></td>
+                    <td>
                 {% else %}
-                    <td class="text-right text-danger">{{ cpt.n_solde_locked }}</td>
+                    <td class="text-right text-danger">
                 {% endif %}
+                        {{ cpt.n_solde_locked|floatformat:"0" }}
+                    </td>
+                
             </tr>
         {% endfor %}
     </div>
