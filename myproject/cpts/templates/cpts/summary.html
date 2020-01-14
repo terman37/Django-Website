@@ -10,7 +10,7 @@
     {% for cpt in mydatas %}
         {% ifchanged cpt.t_type %}
         <p>{{cpt.t_type}}</p>
-
+        {% endifchanged %}
         <table class="table table-striped bg-light m-1">
             <!--
             {% for cpt in mydatas %}
