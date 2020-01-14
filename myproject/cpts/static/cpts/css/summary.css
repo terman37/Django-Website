@@ -23,17 +23,9 @@ article{
 }
 
 #PAGE td:first-child{
-  width:50%;
+  width:40%;
 }
 
 #PAGE td:last-child{
   width:20%;
-}
-
-#PAGE a:link{
-  color: black;
-}
-
-#PAGE a:visited{
-  color: black;
 }
