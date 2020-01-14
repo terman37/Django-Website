@@ -1,7 +1,42 @@
-<!-- templates/registration/login.html -->
+<!-- templates/registration/login.html
 <h2>Login</h2>
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Login</button>
 </form>
+-->
+
+{% extends 'cpts/base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'cpts/css/login.css' %}">
+    <title>Login</title>
+{% endblock head %}
+
+{% block datas %}
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-auto bg-light rounded p-3">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-primary btn-block" type="submit">Login</button>
+            </form>
+
+            <!--
+            <form action="php/login_script.php" method="post">
+              <div class="form-group">
+                <input class="form-control" placeholder="User" type="text" name="user">
+              </div>
+              <div class="form-group">
+                <input class="form-control" placeholder="Password" type="password" name="password">
+              </div>
+              <div class="form-group mb-1">
+                <button class="btn btn-primary btn-block">Sign In</button>
+              </div>
+            </form>
+            -->
+        </div>
+    </div>
+{% endblock datas %}
