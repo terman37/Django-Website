@@ -3,7 +3,12 @@
   <a class="navbar-brand" href="#">Menu</a>
 
   <span class="navbar-text mx-3 font-italic">
-    user:<kbd>{{ user.username }}</kbd>
+    user:
+            {% if user.is_authenticated %}
+                <kbd>{{ user.username }}</kbd>
+            {% else %}
+                <p class="bg-danger text-white">Not connected</p>
+            {% endif %}
   </span>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
