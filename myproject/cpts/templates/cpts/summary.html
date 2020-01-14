@@ -9,7 +9,7 @@
 {% block datas %}
     {% for cpt_type in mytypes %}
         <table class="table table-striped bg-light m-1">
-            {% for cpt in mydatas %}
+            {% for cpt in mydatas[cpt_type] %}
             <tr>
                 <td class="text-left">{{ cpt.t_name }}</td>
                 <td class="text-center text-muted font-italic">{{ cpt.t_banque }}</td>
