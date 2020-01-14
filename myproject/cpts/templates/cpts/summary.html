@@ -7,9 +7,12 @@
 {% endblock head %}
 
 {% block datas %}
-    {% for cpt_type in mytypes %}
-        <p>{{cpt_type}}</p>
+    {% for cpt in mydatas %}
+        {% ifchanged cpt.t_type %}
+        <p>{{cpt.t_type}}</p>
+
         <table class="table table-striped bg-light m-1">
+            <!--
             {% for cpt in mydatas %}
             {% if cpt.t_type == cpt_type %}
                 <tr>
@@ -23,6 +26,7 @@
                 </tr>
             {% endif %}
             {% endfor %}
+            -->
         </table>
     {% endfor %}
 {% endblock datas %}
