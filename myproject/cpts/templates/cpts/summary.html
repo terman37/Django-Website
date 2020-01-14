@@ -11,34 +11,21 @@
     {% for cpt in mydatas %}
         {% ifchanged cpt.t_type %}
             </table>
-            <p>{{cpt.t_type}}</p>
             <table class="table table-striped bg-light m-1">
-
+                <thead class="thead-dark">
+                    <th class="text-left">{{cpt.t_type}}</th>
+                    <th></th>
+                    <th>Solde</th>
+                </thead>
         {% endifchanged %}
-                <tr>
-                    <td class="text-left">{{ cpt.t_name }}</td>
-                    <td class="text-center text-muted font-italic">{{ cpt.t_banque }}</td>
-                    {% if cpt.n_solde_avail > 0 %}
-                        <td class="text-right text-success">{{ cpt.n_solde_avail }}</td>
-                    {% else %}
-                        <td class="text-right text-danger">{{ cpt.n_solde_avail }}</td>
-                    {% endif %}
-                </tr>
-            <!--
-            {% for cpt in mydatas %}
-            {% if cpt.t_type == cpt_type %}
-                <tr>
-                    <td class="text-left">{{ cpt.t_name }}</td>
-                    <td class="text-center text-muted font-italic">{{ cpt.t_banque }}</td>
-                    {% if cpt.n_solde_avail > 0 %}
-                        <td class="text-right text-success">{{ cpt.n_solde_avail }}</td>
-                    {% else %}
-                        <td class="text-right text-danger">{{ cpt.n_solde_avail }}</td>
-                    {% endif %}
-                </tr>
+        <tr>
+            <td class="text-left">{{ cpt.t_name }}</td>
+            <td class="text-center text-muted font-italic">{{ cpt.t_banque }}</td>
+            {% if cpt.n_solde_avail > 0 %}
+                <td class="text-right text-success">{{ cpt.n_solde_avail }}</td>
+            {% else %}
+                <td class="text-right text-danger">{{ cpt.n_solde_avail }}</td>
             {% endif %}
-            {% endfor %}
-        </table>
-        -->
+        </tr>
     {% endfor %}
 {% endblock datas %}
