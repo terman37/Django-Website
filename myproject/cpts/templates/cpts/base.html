@@ -1,7 +1,4 @@
-{% if user.is_authenticated == False %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
-{% endif %}
+
 
 {% load static %}
 
@@ -15,6 +12,10 @@
 </head>
 
 <body class="bg-secondary">
+    {% if user.is_authenticated == False %}
+      <p>You are not logged in</p>
+      <a href="{% url 'login' %}">login</a>
+    {% endif %}
     <!-- MY SCRIPTS-->
     <!-- CONTENT -->
     <article>
