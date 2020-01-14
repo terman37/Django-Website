@@ -11,15 +11,17 @@
         <p>{{cpt_type}}</p>
         <table class="table table-striped bg-light m-1">
             {% for cpt in mydatas %}
-            <tr>
-                <td class="text-left">{{ cpt.t_name }}</td>
-                <td class="text-center text-muted font-italic">{{ cpt.t_banque }}</td>
-                {% if cpt.n_solde_avail > 0 %}
-                    <td class="text-right text-success">{{ cpt.n_solde_avail }}</td>
-                {% else %}
-                    <td class="text-right text-danger">{{ cpt.n_solde_avail }}</td>
-                {% endif %}
-            </tr>
+            {% if cpt.t_type == cpt_type %}
+                <tr>
+                    <td class="text-left">{{ cpt.t_name }}</td>
+                    <td class="text-center text-muted font-italic">{{ cpt.t_banque }}</td>
+                    {% if cpt.n_solde_avail > 0 %}
+                        <td class="text-right text-success">{{ cpt.n_solde_avail }}</td>
+                    {% else %}
+                        <td class="text-right text-danger">{{ cpt.n_solde_avail }}</td>
+                    {% endif %}
+                </tr>
+            {% endif %}
             {% endfor %}
         </table>
     {% endfor %}
