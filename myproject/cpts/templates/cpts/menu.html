@@ -4,7 +4,7 @@
 
   <span class="navbar-text mx-3 font-italic">
         {% if user.is_authenticated %}
-            user:<kbd>{{ user.username }}</kbd>
+            user: <kbd>{{ user.username }}</kbd>
         {% else %}
             <div class="bg-danger text-white rounded px-2">Not connected</div>
         {% endif %}
