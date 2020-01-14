@@ -8,10 +8,10 @@
 
 {% block datas %}
     <div class="row">
-        <table class="table table-striped bg-light m-1">
+
         {% for cpt in mydatas %}
             {% ifchanged cpt.t_type %}
-                </table>
+                
                 <table class="table table-striped bg-light m-1">
                     <thead class="thead-dark">
                         <th class="text-left">{{cpt.t_type}}</th>
