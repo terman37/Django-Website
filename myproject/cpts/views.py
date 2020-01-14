@@ -10,6 +10,6 @@ def summary(request):
     # accounts = []
     # for cpt_type in types:
     #     accounts.append(Accounts.objects.filter(t_type=cpt_type))
-    accounts = Accounts.objects.order_by('t_type').all()
+    accounts = Accounts.objects.order_by('t_type','t_name').all()
     # return render(request, 'cpts/summary.html', {'title': pagetitle, 'mytypes': types, 'mydatas': accounts})
     return render(request, 'cpts/summary.html', {'title': pagetitle, 'mydatas': accounts})
