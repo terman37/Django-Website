@@ -18,11 +18,18 @@ def summary(request):
 @login_required
 def importofx(request):
     pagetitle = "Import Ofx"
-
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
+        result = ofx_to_db(filename)
+        # TODO manage if ofx file to db not working
         uploaded_file_url = fs.url(filename)
         return render(request, 'cpts/importofx.html', {'title': pagetitle, 'uploaded_file_url': uploaded_file_url})
     return render(request, 'cpts/importofx.html', {'title': pagetitle})
+
+
+def ofx_to_db(myfilename):
+    # TODO implement ofx algo
+    success = False
+    return success
