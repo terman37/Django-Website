@@ -24,6 +24,8 @@ def importofx(request):
         filename = fs.save(myfile.name, myfile)
         result = ofx_to_db(filename)
         # TODO manage if ofx file to db not working
+
+
         uploaded_file_url = fs.url(filename)
         return render(request, 'cpts/importofx.html', {'title': pagetitle, 'uploaded_file_url': uploaded_file_url})
     return render(request, 'cpts/importofx.html', {'title': pagetitle})
@@ -32,4 +34,6 @@ def importofx(request):
 def ofx_to_db(myfilename):
     # TODO implement ofx algo
     success = False
+    with open('media/'+myfilename, 'r') as f:
+        myofx = f.read()
     return success
