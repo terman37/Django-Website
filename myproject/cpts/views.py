@@ -82,7 +82,7 @@ def get_op_and_accounts_updates(myofx):
             if flag_CB:
                 # TODO find cpt_id FROM CB OWNER
                 cpt_name = cpt[0:6] + '******' + cpt[-4:]
-                cptid = CbOwner.objects.get(t_cb_num=cpt).cpt
+                cptid = CbOwner.objects.get(t_cb_num=cpt_name).cpt
             else:
                 # TODO retreive cpt id from cpt_name
                 cpt_name = ''
