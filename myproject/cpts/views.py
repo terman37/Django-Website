@@ -146,8 +146,6 @@ def add_operations(operations):
         try:
             oldop = Operations.objects.get(t_bankop_key=op.bankid)
         except:
-            print("op %s already existing" % op.bankid)
-        else:
             # IF NOT ADD NEW LINE IN OPERATIONS
             newop = Operations(cpt_id=op.cpt_id,
                                t_op_type=op.op_type,
@@ -157,6 +155,9 @@ def add_operations(operations):
                                n_value=op.nval
                                )
             newop.save()
+        else:
+            print("op %s already existing" % op.bankid)
+        
     return 0
 
 
