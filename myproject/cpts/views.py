@@ -54,7 +54,7 @@ def extract_from_line(line):
 def get_op_and_accounts_updates(myofx):
     # initialization
     cpt_name = ''
-    op_type = 'std'
+    op_type = 'STD'
     ddate = ''
     desc = ''
     memo = ''
@@ -141,6 +141,7 @@ def get_op_and_accounts_updates(myofx):
 
 
 def add_operations(operations):
+    counter = 0
     for idx, op in operations.iterrows():
         # CHECK IF OPERATION ALREADY EXISTS IN DB
         try:
@@ -156,10 +157,11 @@ def add_operations(operations):
                                cat_id=34
                                )
             newop.save()
+            counter += 1
         else:
             print("op %s already existing" % op.bankid)
 
-    return 0
+    return counter
 
 
 def ofx_to_db(myfilename):
@@ -168,8 +170,9 @@ def ofx_to_db(myfilename):
 
     accounts, operations = get_op_and_accounts_updates(myofx)
 
-    print(operations)
+    # print(operations)
     x = add_operations(operations)
+    print("%d rows added to db" % x)
     print(accounts)
 
     # TODO CHECK / APPEND / UPDATE OPERATIONS AND ACCOUNTS FROM IMPORT RESULT
