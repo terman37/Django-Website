@@ -141,7 +141,7 @@ def get_op_and_accounts_updates(myofx):
 
 
 def add_operations(operations):
-    for op in operations:
+    for idx, op in operations.iterrows():
         # CHECK IF OPERATION ALREADY EXISTS IN DB
         try:
             oldop = Operations.objects.get(t_bankop_key=op.bankid)
