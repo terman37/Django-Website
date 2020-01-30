@@ -1,13 +1,14 @@
 # Basics
 from django.shortcuts import render
-from .models import Accounts
+from .models import Accounts, Operations
+import re
+import pandas as pd
 # Decorators
 from django.contrib.auth.decorators import login_required
 # import
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-import re
-import pandas as pd
+
 
 @login_required
 def summary(request):
@@ -84,6 +85,7 @@ def get_op_and_accounts_updates(myofx):
                 cptid = 0
             else:
                 # TODO retreive cpt id from cpt_name
+                print(Accounts.objects.filter(t_cpt_num=cpt).cpt_id)
                 cpt_name = ''
                 cptid = 0
 
