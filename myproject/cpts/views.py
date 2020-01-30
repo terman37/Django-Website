@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from .models import Accounts, Operations, CbOwner
 import re
+import os
 import pandas as pd
 # Decorators
 from django.contrib.auth.decorators import login_required
@@ -184,5 +185,7 @@ def ofx_to_db(myfilename):
     print("%d rows added to OPERATIONS in db" % x)
 
     update_account(accounts)
+    print("file name:", myfilename)
+    os.remove('media/' + myfilename)
 
     return True
