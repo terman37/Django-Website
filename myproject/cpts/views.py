@@ -1,6 +1,6 @@
 # Basics
 from django.shortcuts import render
-from .models import Accounts, Operations
+from .models import Accounts, Operations, CbOwner
 import re
 import pandas as pd
 # Decorators
@@ -82,12 +82,11 @@ def get_op_and_accounts_updates(myofx):
             if flag_CB:
                 # TODO find cpt_id FROM CB OWNER
                 cpt_name = cpt[0:6] + '******' + cpt[-4:]
-                cptid = 0
+                cptid = CbOwner.objects.get(t_cb_num=cpt).cpt
             else:
                 # TODO retreive cpt id from cpt_name
-                print(Accounts.objects.get(t_cpt_num=cpt).cpt_id)
                 cpt_name = ''
-                cptid = 0
+                cptid = Accounts.objects.get(t_cpt_num=cpt).cpt_id
 
         if tag == 'DTPOSTED':
             ddate = val[0:4] + '-' + val[4:6] + '-' + val[6:]
