@@ -27,10 +27,10 @@ def importofx(request):
         result = ofx_to_db(filename)
         # TODO manage if ofx file to db not working
 
-
         uploaded_file_url = fs.url(filename)
         return render(request, 'cpts/importofx.html', {'title': pagetitle, 'uploaded_file_url': uploaded_file_url})
     return render(request, 'cpts/importofx.html', {'title': pagetitle})
+
 
 # Functions:
 def extract_from_line(line):
@@ -61,6 +61,7 @@ def get_op_and_accounts_updates(myofx):
     bankid = ''
     nval = 0
     nsolde = 0
+    cptid = 0
 
     flag_CB = False
     operations = []
@@ -80,7 +81,6 @@ def get_op_and_accounts_updates(myofx):
         if tag == 'ACCTID':
             cpt = val
             if flag_CB:
-                # TODO find cpt_id FROM CB OWNER
                 cpt_name = cpt[0:6] + '******' + cpt[-4:]
                 cptid = CbOwner.objects.get(t_cb_num=cpt_name).cpt_id
             else:
@@ -140,14 +140,35 @@ def get_op_and_accounts_updates(myofx):
     return accounts, operations
 
 
+def add_operations(operations):
+    for op in operations:
+        # CHECK IF OPERATION ALREADY EXISTS IN DB
+        try:
+            oldop = Operations.objects.get(t_bankop_key=op.bankid)
+        except:
+            print("op %s already existing" % op.bankid)
+        else:
+            # IF NOT ADD NEW LINE IN OPERATIONS
+            newop = Operations(cpt_id=op.cpt_id,
+                               t_op_type=op.op_type,
+                               d_date=op.ddate,
+                               t_desc=op.desc,
+                               t_bankop_key=op.bankid,
+                               n_value=op.nval
+                               )
+            newop.save()
+    return 0
+
+
 def ofx_to_db(myfilename):
-    with open('media/'+myfilename, 'r') as f:
+    with open('media/' + myfilename, 'r') as f:
         myofx = f.readlines()
 
     accounts, operations = get_op_and_accounts_updates(myofx)
 
-    print((operations))
-    print((accounts))
+    print(operations)
+    x = add_operations(operations)
+    print(accounts)
 
     # TODO CHECK / APPEND / UPDATE OPERATIONS AND ACCOUNTS FROM IMPORT RESULT
     # THEN CHECK IF EXISTS / APPEND EACH OPERATION TO OPERATION TABLE
@@ -156,5 +177,3 @@ def ofx_to_db(myfilename):
     # Returned value should be number of lines added in operations / nb of line updated in accounts
     # or error message
     return True
-
-

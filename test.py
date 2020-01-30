@@ -115,7 +115,7 @@ def ofx_to_db(myfilename):
 
     accounts, operations = get_op_and_accounts_updates(myofx)
 
-    print((operations))
+    print((operations.cptid))
     print((accounts))
 
     # TODO CHECK / APPEND / UPDATE OPERATIONS AND ACCOUNTS FROM IMPORT RESULT
