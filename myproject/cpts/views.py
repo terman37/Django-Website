@@ -114,13 +114,13 @@ def get_op_and_accounts_updates(myofx):
                 desc = 'CB-' + desc
             # BANKID CONSTRUCT
             if flag_CB:
-                bankid = 'CB-' + cpt_name + '-' + bankid
+                bankid = 'CB-' + cpt_name + ' - ' + bankid
             else:
-                bankid = cpt_name + '-' + bankid
+                bankid = cpt_name + ' - ' + bankid
 
             operations.append([cptid, op_type, ddate, desc, bankid, nval])
             # reset values
-            op_type = 'std'
+            op_type = 'STD'
             ddate = 0
             desc = ''
             memo = ''
