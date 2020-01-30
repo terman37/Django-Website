@@ -85,7 +85,7 @@ def get_op_and_accounts_updates(myofx):
                 cptid = 0
             else:
                 # TODO retreive cpt id from cpt_name
-                print(Accounts.objects.get(t_cpt_num=cpt))
+                print(Accounts.objects.get(t_cpt_num=cpt).cpt_id)
                 cpt_name = ''
                 cptid = 0
 
