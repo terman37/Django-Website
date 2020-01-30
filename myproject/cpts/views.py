@@ -172,7 +172,6 @@ def update_account(accounts):
             cpt.save()
         except:
             print("cannot find account id")
-    return 0
 
 
 def ofx_to_db(myfilename):
@@ -184,14 +183,6 @@ def ofx_to_db(myfilename):
     x = add_operations(operations)
     print("%d rows added to OPERATIONS in db" % x)
 
-    print(accounts)
-    x = update_account(accounts)
+    update_account(accounts)
 
-
-    # TODO CHECK / APPEND / UPDATE OPERATIONS AND ACCOUNTS FROM IMPORT RESULT
-    # THEN CHECK IF EXISTS / APPEND EACH OPERATION TO OPERATION TABLE
-    # THEN UPDATE ACCOUNT NSOLDE FOR EACH ACCOUNT
-
-    # Returned value should be number of lines added in operations / nb of line updated in accounts
-    # or error message
     return True
