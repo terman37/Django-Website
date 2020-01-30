@@ -152,7 +152,8 @@ def add_operations(operations):
                                d_date=op.ddate,
                                t_desc=op.desc,
                                t_bankop_key=op.bankid,
-                               n_value=op.nval
+                               n_value=op.nval,
+                               cat_id=34
                                )
             newop.save()
         else:
