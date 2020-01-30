@@ -175,7 +175,7 @@ def update_account(accounts):
 
 
 def ofx_to_db(myfilename):
-    with open('media/' + myfilename, 'r') as f:
+    with open('media/' + myfilename, 'r', encoding="ascii") as f:
         myofx = f.readlines()
 
     accounts, operations = get_op_and_accounts_updates(myofx)
