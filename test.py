@@ -1,4 +1,5 @@
 import re
+import pandas as pd
 
 def extract_from_line(line):
     # update line to be a list
@@ -100,6 +101,11 @@ def get_op_and_accounts_updates(myofx):
         if ctag == '/LEDGERBAL':
             accounts.append([cptid, nsolde])
 
+    colname = ["cptid", "op_type", "ddate", "desc", "bankid", "nval"]
+    operations = pd.DataFrame(data=operations, columns=colname)
+
+    colname = ["cptid", "nsolde"]
+    accounts = pd.DataFrame(data=accounts, columns=colname)
     return accounts, operations
 
 
@@ -121,5 +127,4 @@ def ofx_to_db(myfilename):
     return True
 
 
-ofx_to_db('.vs/BP-20200122.ofx')
-# TODO USE PANDAS INSTEAD OF SIMPLE LIST
+ofx_to_db('.vs/CM-20200122.ofx')
