@@ -158,10 +158,21 @@ def add_operations(operations):
                                )
             newop.save()
             counter += 1
-        else:
-            print("op %s already existing" % op.bankid)
+        # else:
+        #     print("op %s already existing" % op.bankid)
 
     return counter
+
+
+def update_account(accounts):
+    for idx, acc in accounts.iterrows():
+        try:
+            cpt = Accounts.objects.get(cpt_id=acc.cptid)
+            cpt.n_solde_avail = acc.nsolde
+            cpt.save()
+        except:
+            print("cannot find account id")
+    return 0
 
 
 def ofx_to_db(myfilename):
@@ -170,10 +181,12 @@ def ofx_to_db(myfilename):
 
     accounts, operations = get_op_and_accounts_updates(myofx)
 
-    # print(operations)
     x = add_operations(operations)
-    print("%d rows added to db" % x)
+    print("%d rows added to OPERATIONS in db" % x)
+
     print(accounts)
+    x = update_account(accounts)
+
 
     # TODO CHECK / APPEND / UPDATE OPERATIONS AND ACCOUNTS FROM IMPORT RESULT
     # THEN CHECK IF EXISTS / APPEND EACH OPERATION TO OPERATION TABLE
