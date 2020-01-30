@@ -141,7 +141,7 @@ def get_op_and_accounts_updates(myofx):
 
 
 def ofx_to_db(myfilename):
-    with open(myfilename, 'r') as f:
+    with open('media/'+myfilename, 'r') as f:
         myofx = f.readlines()
 
     accounts, operations = get_op_and_accounts_updates(myofx)
