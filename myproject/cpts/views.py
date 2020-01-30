@@ -33,7 +33,7 @@ def importofx(request):
     return render(request, 'cpts/importofx.html', {'title': pagetitle})
 
 
-# Functions:
+# TODO OFX MANAGEMENT --> MOVE TO OTHER FILE LATER:
 def extract_from_line(line):
     # update line to be a list
     tag = ''
@@ -189,3 +189,5 @@ def ofx_to_db(myfilename):
     os.remove('media/' + myfilename)
 
     return True
+
+# END OF OFX MANAGEMENT
