@@ -74,16 +74,30 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'DB_2020',
-        'USER': 'django',
-        'PASSWORD': '1234',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+if os.getenv('DJANGO_DEBUG', default='Local') == 'Local':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'DB_2020',
+            'USER': 'django',
+            'PASSWORD': '1234',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+        }
     }
-}
+else:
+    dbuser = os.getenv('DJANGO_DBUSER')
+    dbpwd = os.getenv('DJANGO_DBPWD')
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'DB_2020',
+            'USER': dbuser,
+            'PASSWORD': dbpwd,
+            'HOST': '35.210.206.225',
+            'PORT': '3306',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
