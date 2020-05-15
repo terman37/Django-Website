@@ -16,11 +16,13 @@
         <div id="PAGE" class="container-fluid ">
             <!-- MODAL -->
             <div id="MODAL" class="modal fade">
-
+                {% block modal %}
+                {% endblock modal %}
             </div>
             <!-- FILTERS -->
             <div id="FILTERS" class="row fixed-top bg-dark p-1">
-
+                {% block filters %}
+                {% endblock filters %}
             </div>
             <!-- DATAS_TO_DISPLAY -->
             <div id="DATAS">

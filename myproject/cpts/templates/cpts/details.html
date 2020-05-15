@@ -2,14 +2,39 @@
 {% load static %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'cpts/css/summary.css' %}">
+    <link rel="stylesheet" href="{% static 'cpts/css/details.css' %}">
     <title>{{title}}</title>
 {% endblock head %}
 
+
+{% block modal %}
+
+{% endblock modal %}
+
+
+{% block filters %}
+    <form method="post">
+        {% csrf_token %}
+        <div id="FILTERS_VISIBLE" class="form-row align-items-center mx-2">
+            {{ form }}
+            <button class="btn btn-primary mb-1 btn-sm" type="button" data-toggle="collapse" data-target="#FILTERS_HIDDEN">
+                <span class="fa fa-filter"></span>
+            </button>
+        </div>
+        <div id="FILTERS_HIDDEN" class="collapse form-row align-items-center mx-2">
+            {{ form_hidden }}
+        </div>
+        <input type="submit" value="Filter">
+    </form>
+{% endblock filters %}
+
+
 {% block datas %}
     <div class="row">
+
         {% for cpt in mydatas %}
             {% ifchanged cpt.t_type %}
+
                 <table class="table table-striped bg-light m-1">
                     <thead class="thead-dark">
                         <th class="text-left">{{cpt.t_type}}</th>
@@ -28,8 +53,9 @@
                 {% else %}
                     <td class="text-right text-danger">
                 {% endif %}
-                {{ cpt.n_solde_avail|floatformat:"0" }}
+                        {{ cpt.n_solde_avail|floatformat:"0" }}
                     </td>
+
                 {% if cpt.n_solde_locked > 0 %}
                     <td class="text-right text-success">
                 {% elif cpt.n_solde_locked == 0 %}
@@ -37,7 +63,7 @@
                 {% else %}
                     <td class="text-right text-danger">
                 {% endif %}
-                {{ cpt.n_solde_locked|floatformat:"0" }}
+                        {{ cpt.n_solde_locked|floatformat:"0" }}
                     </td>
             </tr>
         {% endfor %}

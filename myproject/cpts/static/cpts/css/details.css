@@ -1,0 +1,20 @@
+body{
+  background-color: #28465A;
+}
+
+article{
+  margin-top:96px;
+}
+
+#FILTERS.fixed-top{
+  top:56px;
+}
+
+#DATAS_HEADER.sticky-top{
+  top:96px;
+}
+
+.DATA_GROUP.sticky-top{
+  top:98px;
+}
+
