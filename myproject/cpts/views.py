@@ -37,7 +37,6 @@ def importofx(request):
 def details(request):
     pagetitle = "Details"
 
-    # TODO: define default values for all fields
     # TODO: modify forms.py to match filters field required
     # TODO: get values from field to elaborate query
 
@@ -53,10 +52,8 @@ def details(request):
             pass
             # input_DDEBUT = form_hidden.cleaned_data.get("input_DDEBUT")
     else:
-
         form = DetailsFilters()
         form_hidden = DetailsFiltersHidden()
-        # TODO: set default value ? --> initial= in forms.py
 
     # TODO: Add modal management
 
