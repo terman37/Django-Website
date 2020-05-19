@@ -1,6 +1,7 @@
 # imports Django
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
+from django.db import connection
 
 # Decorators
 from django.contrib.auth.decorators import login_required
@@ -8,14 +9,7 @@ from django.contrib.auth.decorators import login_required
 # Imports from files
 from .code.ofx import ofx_to_db
 from .forms import DetailsFilters, DetailsFiltersHidden
-from .models import Accounts
-
-
-@login_required
-def summary(request):
-    pagetitle = "Summary"
-    accounts = Accounts.objects.filter(d_inactive__isnull=True).order_by('t_type', 't_name')
-    return render(request, 'cpts/summary.html', {'title': pagetitle, 'mydatas': accounts})
+from .models import Accounts, Operations
 
 
 @login_required
@@ -34,6 +28,13 @@ def importofx(request):
 
 
 @login_required
+def summary(request):
+    pagetitle = "Summary"
+    accounts = Accounts.objects.filter(d_inactive__isnull=True).order_by('t_type', 't_name')
+    return render(request, 'cpts/summary.html', {'title': pagetitle, 'mydatas': accounts})
+
+
+@login_required
 def details(request):
     pagetitle = "Details"
 
@@ -45,19 +46,30 @@ def details(request):
         form = DetailsFilters(request.POST)
         if form.is_valid():
             input_DDEBUT = form.cleaned_data.get("input_DDEBUT")
-            print(input_DDEBUT)
+            input_BLANKS = form.cleaned_data.get("input_BLANKS")
 
         form_hidden = DetailsFiltersHidden(request.POST)
         if form_hidden.is_valid():
-            pass
-            # input_DDEBUT = form_hidden.cleaned_data.get("input_DDEBUT")
+            input_DFIN = form_hidden.cleaned_data.get("input_DFIN")
+            input_TDESC = form_hidden.cleaned_data.get("input_TDESC")
+            input_TCOMMENT = form_hidden.cleaned_data.get("input_TCOMMENT")
+
+        datas = Operations.objects.\
+            filter(t_op_type="STD", d_date__range=(input_DDEBUT, input_DFIN)).\
+            order_by('-d_date').\
+            prefetch_related('cpt', 'cat')
+
     else:
         form = DetailsFilters()
         form_hidden = DetailsFiltersHidden()
+        datas = None
 
     # TODO: Add modal management
 
     # render page template
-    return render(request, 'cpts/details.html', {'title': pagetitle, 'form': form, 'form_hidden': form_hidden})
+    return render(request, 'cpts/details.html', {'title': pagetitle,
+                                                 'form': form,
+                                                 'form_hidden': form_hidden,
+                                                 'mydatas': datas})
 
 

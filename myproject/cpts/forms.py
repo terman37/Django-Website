@@ -5,13 +5,12 @@ from dateutil.relativedelta import relativedelta
 
 
 class DateInput(forms.DateInput):
-
     input_type = 'date'
 
 
 class DetailsFilters(forms.Form):
 
-    input_DDEBUT = forms.DateField(initial=dt.date.today(),
+    input_DDEBUT = forms.DateField(initial=dt.date.today() + relativedelta(months=-1),
                                    label="Début:",
                                    input_formats=['%Y-%m-%d'],
                                    widget=DateInput)
@@ -23,7 +22,7 @@ class DetailsFilters(forms.Form):
 
 class DetailsFiltersHidden(forms.Form):
 
-    input_DFIN = forms.DateField(initial=dt.date.today() + relativedelta(months=+1),
+    input_DFIN = forms.DateField(initial=dt.date.today() ,
                                  label="Fin:",
                                  input_formats=['%Y-%m-%d'],
                                  widget=DateInput)

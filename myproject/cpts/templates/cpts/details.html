@@ -7,9 +7,7 @@
 {% endblock head %}
 
 
-{% block modal %}
-
-{% endblock modal %}
+{% block modal %}{% endblock modal %}
 
 
 {% block filters %}
@@ -20,52 +18,55 @@
             <button class="btn btn-primary mb-1 btn-sm" type="button" data-toggle="collapse" data-target="#FILTERS_HIDDEN">
                 <span class="fa fa-filter"></span>
             </button>
+            <input type="submit" value="Filter">
         </div>
         <div id="FILTERS_HIDDEN" class="collapse form-row align-items-center mx-2">
             {{ form_hidden }}
         </div>
-        <input type="submit" value="Filter">
     </form>
 {% endblock filters %}
 
 
 {% block datas %}
-    <div class="row">
-
-        {% for cpt in mydatas %}
-            {% ifchanged cpt.t_type %}
-
-                <table class="table table-striped bg-light m-1">
-                    <thead class="thead-dark">
-                        <th class="text-left">{{cpt.t_type}}</th>
-                        <th></th>
-                        <th class="text-right">Solde Dispo</th>
-                        <th class="text-right">Solde Bloqué</th>
-                    </thead>
-            {% endifchanged %}
-            <tr>
-                <td class="text-left">{{ cpt.t_name }}</td>
-                <td class="text-center text-muted font-italic">{{ cpt.t_banque }}</td>
-                {% if cpt.n_solde_avail > 0 %}
-                    <td class="text-right text-success">
-                {% elif cpt.n_solde_avail == 0 %}
-                    <td class="text-right text-secondary">
-                {% else %}
-                    <td class="text-right text-danger">
-                {% endif %}
-                        {{ cpt.n_solde_avail|floatformat:"0" }}
-                    </td>
-
-                {% if cpt.n_solde_locked > 0 %}
-                    <td class="text-right text-success">
-                {% elif cpt.n_solde_locked == 0 %}
-                    <td class="text-right text-secondary">
-                {% else %}
-                    <td class="text-right text-danger">
-                {% endif %}
-                        {{ cpt.n_solde_locked|floatformat:"0" }}
-                    </td>
-            </tr>
-        {% endfor %}
-    </div>
+    {% for op in mydatas %}
+        {% ifchanged op.d_date %}
+            {% if not forloop.first %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+            <div class="row bg-secondary text-light font-weight-bold sticky-top my-1 DATA_GROUP">
+                <div class="col-12">{{op.d_date}}</div>
+            </div>
+            <div class="card p-0">
+                <div class="card-body bg-white p-0 pb-1 pr-1">
+                    <ul class="list-group list-group-flush ">
+        {% endifchanged %}
+        <div class="row text-nowrap text-truncate p-1 ">
+            <div class="col-xl-4 text-truncate d-none d-xl-block">
+                <button class="btn btn-secondary btn-sm mr-2 align-right" type="button" onClick="load_modal({{op.op_id}})">
+                    <span class="fa fa-edit"></span>
+                </button>
+                {{op.t_desc}}
+            </div>
+            <div class="col-xl-1 <?=$Color?> text-center d-none d-xl-block">
+                {{ op.n_value|floatformat:"0" }}
+            </div>
+            <div class="col-xl-2 text-truncate d-none d-xl-block">
+                <i class="fa <?=$icon?>"></i>
+                {{ op.cat.t_cat_name }}
+            </div>
+            <div class="col-xl-2 d-none d-xl-block">
+                {{ op.cpt.t_name }}
+            </div>
+            <div class="col-xl-3 d-none d-xl-block">
+                {{ op.t_comment }}
+            </div>
+        </div>
+    {% endfor %}
 {% endblock datas %}
+
+
+{% block javascript %}
+    <script src="{% static 'cpts/js/details.js' %}"></script>
+{% endblock javascript %}

@@ -5,6 +5,7 @@ import pandas as pd
 # imports Django
 from ..models import Accounts, Operations, CbOwner
 
+# TODO: filter operation like '%BD2B%' from BP, not validated. and adjust SOLDE
 
 def extract_from_line(line):
     # update line to be a list
