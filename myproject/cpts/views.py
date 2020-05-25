@@ -39,7 +39,7 @@ def summary(request):
 def details(request):
     pagetitle = "Details"
 
-    # TODO: modify forms.py to match filters field required
+    # TODO: make fields more pretty
 
     # Get filters values
     if request.method == 'POST':
@@ -75,7 +75,7 @@ def details(request):
 def details_modal(request):
 
     op_id = request.GET.get('op_id')
-    print(op_id)
+    print(Accounts.objects.all())
     # TODO: get infos to populate modal
     # TODO: send in the rendering
 
