@@ -9,8 +9,8 @@ from django.contrib.auth.decorators import login_required
 
 # Imports from files
 from .code.ofx import ofx_to_db
-from .forms import DetailsFilters, DetailsFiltersHidden
-from .models import Accounts, Operations
+from .forms import DetailsFilters, DetailsFiltersHidden, DetailsModal
+from .models import Accounts, Operations, Categories
 
 
 @login_required
@@ -55,9 +55,9 @@ def details(request):
             input_TCOMMENT = form_hidden.cleaned_data.get("input_TCOMMENT")
 
         # TODO: get values from field to elaborate query
-        datas = Operations.objects.\
-            filter(t_op_type="STD", d_date__range=(input_DDEBUT, input_DFIN)).\
-            order_by('-d_date').\
+        datas = Operations.objects. \
+            filter(t_op_type="STD", d_date__range=(input_DDEBUT, input_DFIN)). \
+            order_by('-d_date'). \
             prefetch_related('cpt', 'cat')
 
     else:
@@ -72,14 +72,36 @@ def details(request):
                                                  'mydatas': datas})
 
 
+@login_required
 def details_modal(request):
+    op_id = int(request.GET.get('op_id'))
 
-    op_id = request.GET.get('op_id')
-    print(Accounts.objects.all())
-    # TODO: get infos to populate modal
-    # TODO: send in the rendering
+    datas = Operations.objects.get(pk=op_id)
+
+    form = DetailsModal()
+    form.fields['MODAL_date'].initial = datas.d_date
+    form.fields['MODAL_cat'].initial = datas.cat.cat_id
+    form.fields['MODAL_comment'].initial = datas.t_comment
 
     html_form = render_to_string('cpts/details_modal.html',
-                                  request=request,
-                                 )
+                                 {'form': form, 'mydatas': datas})
+
     return JsonResponse({'html_form': html_form})
+
+
+@login_required
+def details_modal_save(request):
+    op_id = int(request.GET.get('op_id'))
+    data = Operations.objects.get(pk=op_id)
+
+    # data.t_comment = request.GET.get('comment')
+    data.d_date = request.GET.get('date')
+
+    data_cat = Categories.objects.get(pk=int(request.GET.get('cat')))
+    data.cat = data_cat
+
+    data.t_comment = request.GET.get('comment')
+    data.save()
+
+    print("received %s" % request.GET.get('comment'))
+    return JsonResponse({'html_form': ""})

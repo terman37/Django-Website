@@ -10,13 +10,25 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 
-class ModelChoiceField_tname(forms.ModelMultipleChoiceField):
+class ModelMultipleChoiceField_tname(forms.ModelMultipleChoiceField):
     def label_from_instance(self, obj):
         return obj.t_name
 
-class ModelChoiceField_t_cat_name(forms.ModelMultipleChoiceField):
+
+class ModelChoiceField_tname(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return obj.t_name
+
+
+class ModelMultipleChoiceField_t_cat_name(forms.ModelMultipleChoiceField):
     def label_from_instance(self, obj):
         return obj.t_cat_name
+
+
+class ModelChoiceField_t_cat_name(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return obj.t_cat_name
+
 
 class DetailsFilters(forms.Form):
     input_DDEBUT = forms.DateField(initial=dt.date.today() + relativedelta(months=-1),
@@ -35,17 +47,17 @@ class DetailsFiltersHidden(forms.Form):
                                  input_formats=['%Y-%m-%d'],
                                  widget=DateInput)
 
-    input_COMPTE = ModelChoiceField_tname(queryset=Accounts.objects.all(),
-                                          to_field_name='cpt_id',
-                                          label="Compte",
-                                          required=False,
-                                          )
+    input_COMPTE = ModelMultipleChoiceField_tname(queryset=Accounts.objects.all(),
+                                                  to_field_name='cpt_id',
+                                                  label="Compte",
+                                                  required=False,
+                                                  )
 
-    input_CATEG = ModelChoiceField_t_cat_name(queryset=Categories.objects.all(),
-                                          to_field_name='cat_id',
-                                          label="Compte",
-                                          required=False,
-                                          )
+    input_CATEG = ModelMultipleChoiceField_t_cat_name(queryset=Categories.objects.all(),
+                                                      to_field_name='cat_id',
+                                                      label="Categorie",
+                                                      required=False,
+                                                      )
 
     input_TDESC = forms.CharField(initial="",
                                   label="Desc.:",
@@ -54,3 +66,20 @@ class DetailsFiltersHidden(forms.Form):
     input_TCOMMENT = forms.CharField(initial="",
                                      label="Comment.:",
                                      required=False)
+
+
+class DetailsModal(forms.Form):
+    MODAL_date = forms.DateField(label="Date:",
+                                 input_formats=['%Y-%m-%d'],
+                                 widget=DateInput(attrs={'id': 'MODAL_date'}))
+
+    MODAL_cat = ModelChoiceField_t_cat_name(queryset=Categories.objects.all(),
+                                            to_field_name='cat_id',
+                                            label="Categorie",
+                                            required=False,
+                                            widget=forms.Select(attrs={'id': 'MODAL_cat'}))
+
+    MODAL_comment = forms.CharField(label="Comment.:",
+                                    required=False,
+                                    widget=forms.TextInput(attrs={'id': 'MODAL_comment'}))
+

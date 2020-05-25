@@ -1,38 +1,22 @@
 <!-- Modal body -->
 <div class="container-fluid">
-<span id="MODAL_opid" class="d-none">1234</span>
-<div class="row align-items-center">
-  <div class="col text-center font-weight-bold">
-    <?=$desc?>
-  </div>
-</div>
-<hr>
-<div class="row align-items-center">
-  <div class="col-8">
-    nom_du_compte
-  </div>
-  <div class="col-4 'text-success' text-right font-weight-bold">
-    <?=$val?>
-  </div>
-</div>
-<hr>
-<!--<div class="row align-items-center">-->
-<!--  <?-->
-<!--    add_input_date('12','MODAL_date','','Date',$date);-->
-<!--    add_input_select_one('10','MODAL_cat','','Categ',$catid,'ADMIN','CATEGORIES');-->
-<!--    add_button_expand('1','#CATAUTO_HIDDDEN','fa-plus-square');-->
-<!--    ?>-->
-<!--    <div id="CATAUTO_HIDDDEN" class="collapse col-12">-->
-<!--      <div class="row">-->
-<!--        <div id="MODAL_catassign_id" class="d-none"><?=$catassign?></div>-->
-<!--        <?-->
-<!--          add_input_text('10','MODAL_catauto','','Cat Auto?',$catassign_desc);-->
-<!--          add_button('1','catauto_modal()','fa-check-square');-->
-<!--        ?>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <?-->
-<!--    add_input_text('12','MODAL_comment','','Comment',$comment);-->
-<!--  ?>-->
-<!--</div>-->
+    <span id="MODAL_opid" class="d-none">{{mydatas.op_id}}</span>
+    <div class="row align-items-center">
+        <div class="col text-center font-weight-bold">
+            {{mydatas.t_desc}}
+        </div>
+    </div>
+    <hr>
+    <div class="row align-items-center">
+        <div class="col-8">
+            {{mydatas.cpt.t_name}}
+        </div>
+        <div class="col-4 'text-success' text-right font-weight-bold">
+            {{mydatas.n_value}}
+        </div>
+    </div>
+    <hr>
+    <div class="row align-items-center">
+        {{ form }}
+    </div>
 </div>
