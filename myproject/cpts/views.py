@@ -1,7 +1,8 @@
 # imports Django
 from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
-from django.db import connection
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 
 # Decorators
 from django.contrib.auth.decorators import login_required
@@ -39,7 +40,6 @@ def details(request):
     pagetitle = "Details"
 
     # TODO: modify forms.py to match filters field required
-    # TODO: get values from field to elaborate query
 
     # Get filters values
     if request.method == 'POST':
@@ -54,6 +54,7 @@ def details(request):
             input_TDESC = form_hidden.cleaned_data.get("input_TDESC")
             input_TCOMMENT = form_hidden.cleaned_data.get("input_TCOMMENT")
 
+        # TODO: get values from field to elaborate query
         datas = Operations.objects.\
             filter(t_op_type="STD", d_date__range=(input_DDEBUT, input_DFIN)).\
             order_by('-d_date').\
@@ -64,8 +65,6 @@ def details(request):
         form_hidden = DetailsFiltersHidden()
         datas = None
 
-    # TODO: Add modal management
-
     # render page template
     return render(request, 'cpts/details.html', {'title': pagetitle,
                                                  'form': form,
@@ -73,3 +72,14 @@ def details(request):
                                                  'mydatas': datas})
 
 
+def details_modal(request):
+
+    op_id = request.GET.get('op_id')
+    print(op_id)
+    # TODO: get infos to populate modal
+    # TODO: send in the rendering
+
+    html_form = render_to_string('cpts/details_modal.html',
+                                  request=request,
+                                 )
+    return JsonResponse({'html_form': html_form})
