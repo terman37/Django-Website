@@ -7,6 +7,7 @@ from ..models import Accounts, Operations, CbOwner
 
 # TODO: filter operation like '%BD2B%' from BP, not validated. and adjust SOLDE
 
+
 def extract_from_line(line):
     # update line to be a list
     tag = ''
@@ -120,7 +121,9 @@ def add_operations(operations):
         # CHECK IF OPERATION ALREADY EXISTS IN DB
         try:
             oldop = Operations.objects.get(t_bankop_key=op.bankid)
-        except:
+            print(oldop)
+        except Exception as e:
+            print(e)
             # IF NOT ADD NEW LINE IN OPERATIONS
             newop = Operations(cpt_id=op.cptid,
                                t_op_type=op.op_type,
@@ -144,8 +147,8 @@ def update_account(accounts):
             cpt = Accounts.objects.get(cpt_id=acc.cptid)
             cpt.n_solde_avail = acc.nsolde
             cpt.save()
-        except:
-            print("cannot find account id")
+        except Exception as e:
+            print("cannot find account id ", e)
 
 
 def ofx_to_db(myfilename):
