@@ -105,3 +105,4 @@ def details_modal_save(request):
 
     print("received %s" % request.GET.get('comment'))
     return JsonResponse({'html_form': ""})
+
